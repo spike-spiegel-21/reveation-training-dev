@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
+//to snapshot voting power at a cretain moment we use ERC20Votes
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 
 contract GovernanceToken is ERC20Votes {
@@ -10,6 +11,8 @@ contract GovernanceToken is ERC20Votes {
 		ERC20("GovernanceToken", "GT")
 		ERC20Permit("GovernanceToken")
 	{
+		//minted all tokens to sender, but we can distribute it.
+		//here mint will write a check point for the snapshot.
 		_mint(msg.sender, s_maxSupply);
 	}
 
@@ -20,6 +23,7 @@ contract GovernanceToken is ERC20Votes {
 		address to,
 		uint256 amount
 	) internal override(ERC20Votes) {
+		//ultimately we are calling the parent class.
 		super._afterTokenTransfer(from, to, amount);
 	}
 

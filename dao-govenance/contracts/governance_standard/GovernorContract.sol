@@ -16,6 +16,7 @@ contract GovernorContract is
 	GovernorVotesQuorumFraction,
 	GovernorTimelockControl
 {
+	//while we deploy this contract we are required to pass Governor setting variables.
 	constructor(
 		IVotes _token,
 		TimelockController _timelock,

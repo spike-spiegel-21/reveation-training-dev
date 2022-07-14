@@ -13,6 +13,10 @@ const deployGovernorContract: DeployFunction = async (
   const { deploy, log, get } = deployments;
   const { deployer } = await getNamedAccounts();
 
+  //get will help to import the alredy deployed contracts.
+  //we will doploy these scripts in order because they need to get deployed.
+
+  
   const governanceToken = await get("GovernanceToken");
   const timeLock = await get("TimeLock");
 

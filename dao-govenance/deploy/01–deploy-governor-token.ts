@@ -5,6 +5,7 @@ import { ethers } from "hardhat";
 const deployGovernanceToken: DeployFunction = async (
   hre: HardhatRuntimeEnvironment
 ) => {
+  //injected from hre
   const { getNamedAccounts, deployments, network } = hre;
   const { deploy, log } = deployments;
   const { deployer } = await getNamedAccounts();
@@ -14,7 +15,7 @@ const deployGovernanceToken: DeployFunction = async (
     from: deployer,
     log: true,
     args: [],
-    // waitConfirmations: 1, // For non-dev netwworks so we can verify
+    // waitConfirmations: 1
   });
 
   log(`01-Deployed 'GovernanceToken' at ${governanceToken.address}`);
@@ -24,6 +25,8 @@ const deployGovernanceToken: DeployFunction = async (
   log(`Delegated votes to ${deployer} `);
 };
 
+
+//Since we used Governance token as ownable, we have to pass the ownership to mint the tokens.
 const delegate = async (
   governanceTokenAddress: string,
   delegatedAccount: string
@@ -40,4 +43,6 @@ const delegate = async (
 };
 
 export default deployGovernanceToken;
+
+//configuration in all scripts for hre
 deployGovernanceToken.tags = ["all", "governor"];

@@ -3,6 +3,8 @@ import { DeployFunction } from "hardhat-deploy/types";
 import { ethers } from "hardhat";
 import { ADDRESS_ZERO } from "../hardhat-helper-config";
 
+
+//For setting all the 
 const setupGovernanceContracts: DeployFunction = async (
   hre: HardhatRuntimeEnvironment
 ) => {
@@ -14,10 +16,15 @@ const setupGovernanceContracts: DeployFunction = async (
   const governor = await ethers.getContract("GovernorContract", deployer);
 
   log("Setting up roles...");
+  
+  //returns the role of proposer, executer and admin.
   const proposerRole = await timeLock.PROPOSER_ROLE();
   const executorRole = await timeLock.EXECUTOR_ROLE();
   const adminRole = await timeLock.TIMELOCK_ADMIN_ROLE();
 
+
+
+  //granting roles in the timelock
   const proposerTx = await timeLock.grantRole(proposerRole, governor.address);
   await proposerTx.wait(1);
 
